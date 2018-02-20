@@ -1,0 +1,47 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>
+            My Tasks
+        </ion-title>
+        <ion-buttons end>
+            <!-- <button ion-button (click)="openTodoAlert()"> -->
+            <button ion-button (click)="openTodoDetailModal()">
+            <ion-icon name="add"></ion-icon>
+          </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-list [reorder]="reorderIsEnabled" (ionItemReorder)="itemReordered($event)">
+        <ion-item-sliding *ngFor="let todo of itemListRef$ | async; let todoIndex = index">
+
+            <ion-item-options side="left">
+                <button ion-button (click)="editTodoDetailModal(todo)">
+                <ion-icon name="create"></ion-icon>
+              </button>
+
+            </ion-item-options>
+
+            <ion-item [color]="todo.order == 1 ? 'danger' : 'primary'">
+                {{todo.task}}
+                <div>{{todo.date}}</div>
+            </ion-item>
+
+            <ion-item-options side="right">
+                <button color="danger" ion-button (click)="archiveTodo(todo)">
+                <ion-icon name="trash"></ion-icon>
+              </button>
+
+            </ion-item-options>
+        </ion-item-sliding>
+
+    </ion-list>
+
+    <ion-fab right bottom>
+        <!-- <button ion-fab [navPush]="archivedTodosPage"> -->
+        <button ion-fab (click)="goToArchivePage()">
+            <ion-icon name="archive"></ion-icon>
+        </button>
+    </ion-fab>
+</ion-content>
